@@ -53,3 +53,11 @@ def test_df_csv():
     # assert that every key is present in the dataframe columns
     for key in json_model:
         assert key in df_csv.columns
+        # assert nested keys in the json types
+        if isinstance(json_model[key], dict):
+          for k1 in json_model[key]:
+            assert k1 in df_csv[key].iloc[0]
+            if isinstance(json_model[key][k1], dict):
+              for k2 in json_model[key][k1]:
+                assert k2 in df_csv[key].iloc[0][k1]
+        

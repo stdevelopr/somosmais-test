@@ -15,8 +15,8 @@ class Name:
 
 @dataclass
 class Coordinates:
-    latitude: float
-    longitude: float
+    latitude: str
+    longitude: str
 
     def __post_init__(self):
         dataclass_type_validator(self)

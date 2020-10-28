@@ -1,5 +1,5 @@
 import json
-from app.load_data import dataframe_from_csv, dataframe_from_json, request_csv, request_json
+from app.load_data import dataframe_from_csv, dataframe_from_json, request_csv, request_json, build_df
 import pandas as pd
 
 json_model = {
@@ -88,4 +88,12 @@ def test_dataframe_from_json():
           if isinstance(json_model[key][k1], dict):
             for k2 in json_model[key][k1]:
               assert k2 in df_json[key].iloc[0][k1]
+
+def test_build_df():
+  """ Assert the sum of rows from csv and json at the final df """
+  df_csv = dataframe_from_csv()
+  df_json = dataframe_from_json()
+  df = build_df()
+  assert len(df_csv.index) + len(df_json.index) == len(df.index)
+
         

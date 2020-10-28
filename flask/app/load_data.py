@@ -29,46 +29,56 @@ def dataframe_from_csv():
 def dataframe_from_json():
     """ Return a structured pandas dataframe from a requested json file"""
     response = request_json()
-    df_json = process_json(pd.DataFrame.from_dict(response.json()))
+    df_json = process_json(pd.DataFrame.from_dict(response.json()['results']))
     return df_json
 
 
 def process_csv(df):
     """Reestructure a csv dataframe and return a new one with new fields"""
+    # print(df.columns)
+    # Index(['gender', 'name__title', 'name__first', 'name__last',
+    #    'location__street', 'location__city', 'location__state',
+    #    'location__postcode', 'location__coordinates__latitude',
+    #    'location__coordinates__longitude', 'location__timezone__offset',
+    #    'location__timezone__description', 'email', 'dob__date', 'dob__age',
+    #    'registered__date', 'registered__age', 'phone', 'cell',
+    #    'picture__large', 'picture__medium', 'picture__thumbnail'],
+    #   dtype='object')
+
     obj_list = []
     for k, row in df.iterrows():
         json_obj = asdict(Client(
             type="", 
-            gender = "", 
+            gender = row['gender'], 
             name = Name(
-                title = "", 
-                first = "", 
-                last = ""
+                title = row['name__title'], 
+                first = row['name__first'], 
+                last = row['name__last']
                 ), 
             location = Location(
                 region = "",
-                street = "",
-                city = "",
-                state= "",
-                postcode = 0,
+                street = row['location__street'],
+                city = row['location__city'],
+                state= row['location__state'],
+                postcode = row['location__postcode'],
                 coordinates = Coordinates(
-                    latitude = 0.0,
-                    longitude = 0.0
+                    latitude = str(row['location__coordinates__latitude']),
+                    longitude = str(row['location__coordinates__longitude'])
                     ),
                 timezone= Timezone(
-                    offset = "",
-                    description= ""
+                    offset = row['location__timezone__offset'],
+                    description= row['location__timezone__description']
                     )
                 ),
-            email = "",
-            birthday = "",
-            registered = "",
+            email = row['email'],
+            birthday = row['dob__date'],
+            registered = row['registered__date'],
             telephoneNumbers = ["",""],
             mobileNumbers = ["",""],
             picture = Picture(
-                medium= "", 
-                large="", 
-                thumbnail=""
+                medium= row['picture__medium'], 
+                large=row['picture__large'], 
+                thumbnail=row['picture__thumbnail']
                 ),
             nationality = ""
             )
@@ -80,40 +90,44 @@ def process_csv(df):
 
 def process_json(df):
     """Reestructure a json dataframe and return a new one with new fields"""
+    # print(df.columns)
+    # Index(['gender', 'name', 'location', 'email', 'dob', 'registered', 'phone',
+    #    'cell', 'picture'],
+    #   dtype='object')
     obj_list = []
     for k, row in df.iterrows():
         json_obj = asdict(Client(
             type="",
-            gender = "",
+            gender = row['gender'],
             name = Name(
-                title = "",
-                first = "",
-                last = ""
+                title = row['name']['title'],
+                first = row['name']['first'],
+                last = row['name']['first']
                 ),
             location = Location(
                 region = "",
-                street = "",
-                city = "",
-                state= "",
-                postcode = 0,
+                street = row['location']['street'],
+                city = row['location']['city'],
+                state= row['location']['state'],
+                postcode = row['location']['postcode'],
                 coordinates = Coordinates(
-                    latitude = 0.0, 
-                    longitude = 0.0
+                    latitude = str(row['location']['coordinates']['latitude']), 
+                    longitude = str(row['location']['coordinates']['longitude'])
                     ),
                 timezone= Timezone(
-                    offset = "", 
-                    description= ""
+                    offset = row['location']['timezone']['offset'], 
+                    description= row['location']['timezone']['description']
                     ) 
                 ),
-            email = "",
-            birthday = "",
-            registered = "",
+            email = row['email'],
+            birthday = row['dob']['date'],
+            registered = row['registered']['date'],
             telephoneNumbers = ["",""],
             mobileNumbers = ["",""],
             picture = Picture(
-                medium= "",
-                large="",
-                thumbnail=""
+                medium= row['picture']['medium'],
+                large=row['picture']['large'],
+                thumbnail=row['picture']['thumbnail']
                 ),
             nationality = ""
             )
@@ -125,4 +139,6 @@ def process_json(df):
 
 def build_df():
     df_csv = dataframe_from_csv()
-    return df_csv
+    df_json = dataframe_from_json()
+    df = pd.concat([df_csv, df_json])
+    return df

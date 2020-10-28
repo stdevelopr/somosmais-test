@@ -3,6 +3,8 @@ import requests
 from io import StringIO
 import csv
 from .model import Client, Name, Location, Coordinates, Timezone, Picture
+from .utils import client_type_from_coordinates, gender_type, generate_telephone_list, \
+                    get_region, get_nationality
 from dataclasses import asdict
 
 
@@ -22,18 +24,18 @@ def dataframe_from_csv():
     response = request_csv()
     s = str(response.content,'utf-8')
     csv_content = StringIO(s)
-    df_csv = process_csv(pd.read_csv(csv_content))
+    df_csv = map_csv(pd.read_csv(csv_content))
     return df_csv
 
 
 def dataframe_from_json():
     """ Return a structured pandas dataframe from a requested json file"""
     response = request_json()
-    df_json = process_json(pd.DataFrame.from_dict(response.json()['results']))
+    df_json = map_json(pd.DataFrame.from_dict(response.json()['results']))
     return df_json
 
 
-def process_csv(df):
+def map_csv(df):
     """Reestructure a csv dataframe and return a new one with new fields"""
     # print(df.columns)
     # Index(['gender', 'name__title', 'name__first', 'name__last',
@@ -48,15 +50,16 @@ def process_csv(df):
     obj_list = []
     for k, row in df.iterrows():
         json_obj = asdict(Client(
-            type="", 
-            gender = row['gender'], 
+            type=client_type_from_coordinates(float(row['location__coordinates__latitude']),
+                                            float(row['location__coordinates__longitude'])),
+            gender = gender_type(row['gender']),
             name = Name(
                 title = row['name__title'], 
                 first = row['name__first'], 
                 last = row['name__last']
                 ), 
             location = Location(
-                region = "",
+                region = get_region(row['location__state']),
                 street = row['location__street'],
                 city = row['location__city'],
                 state= row['location__state'],
@@ -73,14 +76,14 @@ def process_csv(df):
             email = row['email'],
             birthday = row['dob__date'],
             registered = row['registered__date'],
-            telephoneNumbers = ["",""],
-            mobileNumbers = ["",""],
+            telephoneNumbers = generate_telephone_list(get_nationality(), row['phone']),
+            mobileNumbers = generate_telephone_list(get_nationality(), row['cell']),
             picture = Picture(
                 medium= row['picture__medium'], 
                 large=row['picture__large'], 
                 thumbnail=row['picture__thumbnail']
                 ),
-            nationality = ""
+            nationality = get_nationality()
             )
         )
         obj_list.append(json_obj)
@@ -88,7 +91,7 @@ def process_csv(df):
     new_df = pd.DataFrame.from_dict(obj_list)
     return new_df
 
-def process_json(df):
+def map_json(df):
     """Reestructure a json dataframe and return a new one with new fields"""
     # print(df.columns)
     # Index(['gender', 'name', 'location', 'email', 'dob', 'registered', 'phone',
@@ -97,15 +100,16 @@ def process_json(df):
     obj_list = []
     for k, row in df.iterrows():
         json_obj = asdict(Client(
-            type="",
-            gender = row['gender'],
+            type=client_type_from_coordinates(float(row['location']['coordinates']['latitude']),
+                                            float(row['location']['coordinates']['longitude'])),
+            gender = gender_type(row['gender']),
             name = Name(
                 title = row['name']['title'],
                 first = row['name']['first'],
                 last = row['name']['first']
                 ),
             location = Location(
-                region = "",
+                region = get_region(row['location']['state']),
                 street = row['location']['street'],
                 city = row['location']['city'],
                 state= row['location']['state'],
@@ -122,14 +126,14 @@ def process_json(df):
             email = row['email'],
             birthday = row['dob']['date'],
             registered = row['registered']['date'],
-            telephoneNumbers = ["",""],
-            mobileNumbers = ["",""],
+            telephoneNumbers = generate_telephone_list(get_nationality(), row['phone']),
+            mobileNumbers = generate_telephone_list(get_nationality(), row['cell']),
             picture = Picture(
                 medium= row['picture']['medium'],
                 large=row['picture']['large'],
                 thumbnail=row['picture']['thumbnail']
                 ),
-            nationality = ""
+            nationality = get_nationality()
             )
         )
         obj_list.append(json_obj)

@@ -98,7 +98,7 @@ def strip_accents(s):
                   if unicodedata.category(c) != 'Mn')
 
 
-def slice_dataframe(df, pageSize, pageNumber):
+def slice_dataframe(df, pageSize: int, pageNumber: int):
     """ Slice a dataframe according to pagesize and pageNumber """
     pageSize = pageSize
     pageNumber = pageNumber

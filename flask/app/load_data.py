@@ -145,4 +145,5 @@ def build_df():
     df_csv = dataframe_from_csv()
     df_json = dataframe_from_json()
     df = pd.concat([df_csv, df_json])
+    df.drop_duplicates(['email', 'birthday'], inplace=True) 
     return df

@@ -49,6 +49,6 @@ def index():
         "totalCount": totalCount,
         "users": parsed_json
     })
-    # resp = jsonify(parsed_json)
+
     resp.headers.add("Access-Control-Allow-Origin", "*")
     return resp

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 interface UserResponse {
   users: [];
@@ -19,6 +18,7 @@ export class UsersService {
   private _pageNumber = '1';
   private _region = 'all';
   private _type = 'all';
+  serverURL = environment.serverURL;
 
   getUsers(
     region,
@@ -34,8 +34,9 @@ export class UsersService {
         type: type ? type : this._type
       }
     });
-    let url = 'http://127.0.0.1:5000/clients/';
-    return this.http.get<UserResponse>(url, { params: httpParams });
+    return this.http.get<UserResponse>(this.serverURL + '/clients', {
+      params: httpParams
+    });
   }
 
   getSelected() {

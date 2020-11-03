@@ -32,7 +32,7 @@ Open: http://localhost
 
 ## Running Python Tests:
 
-docker-compose -f docker-compose.yml run --rm flask_demo python manage.py test
+sudo docker-compose -f docker-compose.yml run --rm flask python -m pytest
 
 ## Development:
 

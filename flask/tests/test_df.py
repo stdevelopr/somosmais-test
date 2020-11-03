@@ -89,11 +89,4 @@ def test_dataframe_from_json():
             for k2 in json_model[key][k1]:
               assert k2 in df_json[key].iloc[0][k1]
 
-def test_build_df():
-  """ Assert the sum of rows from csv and json at the final df """
-  df_csv = dataframe_from_csv()
-  df_json = dataframe_from_json()
-  df = build_df()
-  assert len(df_csv.index) + len(df_json.index) == len(df.index)
-
         

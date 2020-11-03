@@ -17,7 +17,7 @@ def test_clients_paginate(client):
 
 def test_clients_filter(client):
     """ Assert that all clients satisfy the filter parameters """
-    resp = client.get("/clients/", query_string={'region': 'norte', 'client_type': 'laborious'})
+    resp = client.get("/clients/", query_string={'region': 'norte', 'type': 'laborious'})
     for c in resp.json['users']:
         assert c['location']['region'] == 'norte'
         assert c['type'] == 'laborious'

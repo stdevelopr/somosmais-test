@@ -1,0 +1,24 @@
+<div class="cards-container">
+  <ng-container *ngFor="let user of users; let i = index">
+    <div class="card" (click)="showUser(user)">
+      <mat-card class="mat-card">
+        <img mat-card-md-image src="{{ user.picture.medium }}" />
+        <mat-card-content>
+          <div class="user-name">
+            {{ user.name.first | titlecase }} {{ user.name.last | titlecase }}
+          </div>
+          <div class="user-adress">
+            {{ user.location.street | titlecase }}
+          </div>
+          <div class="user-info">
+            {{ user.location.city | titlecase }}
+          </div>
+          <div class="user-info">
+            {{ user.location.state | titlecase }}-CEP:
+            {{ user.location.postcode }}
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

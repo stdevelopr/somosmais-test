@@ -1,0 +1,56 @@
+<div class="details-container" *ngIf="user; else elseBlock">
+  <div class="content">
+    <img src="{{ user.picture.medium }}" />
+    <table>
+      <tr>
+        <td>Primeiro Nome</td>
+        <td>{{ user.name.first | titlecase }}</td>
+      </tr>
+      <tr>
+        <td>Ultimo Nome</td>
+        <td>{{ user.name.last | titlecase }}</td>
+      </tr>
+      <tr>
+        <td>Tipo</td>
+        <td>{{ user.type }}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{ user.email }}</td>
+      </tr>
+      <tr>
+        <td>Região</td>
+        <td>{{ user.location.region }}</td>
+      </tr>
+      <tr>
+        <td>Estado</td>
+        <td>{{ user.location.state }}</td>
+      </tr>
+      <tr>
+        <td>Cidade</td>
+        <td>{{ user.location.city }}</td>
+      </tr>
+      <tr>
+        <td>CEP</td>
+        <td>{{ user.location.postcode }}</td>
+      </tr>
+      <tr>
+        <td>Rua</td>
+        <td>{{ user.location.street }}</td>
+      </tr>
+      <tr>
+        <td>Telefones</td>
+        <td>{{ user.telephoneNumbers }}</td>
+      </tr>
+      <tr>
+        <td>Celulares</td>
+        <td>{{ user.mobileNumbers }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div style="text-align: center; margin: 200px;">
+    !!! Selecione um usuário a partir da tela home !!!
+  </div>
+</ng-template>

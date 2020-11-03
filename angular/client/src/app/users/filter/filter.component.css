@@ -1,0 +1,14 @@
+.radio-group {
+  display: grid;
+  justify-content: center;
+}
+
+.radio-container {
+  background-color: #e4e4e4;
+  margin: 10px;
+  padding: 20px;
+}
+
+.label {
+  margin-bottom: 20px;
+}

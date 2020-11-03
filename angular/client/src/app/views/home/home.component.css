@@ -1,0 +1,37 @@
+.home-container {
+  padding: 0px 70px 70px 70px;
+  display: grid;
+  grid-template:
+    "s c c " 60vh
+    /250px auto;
+  grid-gap: 10px;
+}
+
+.sidenav {
+  grid-area: s;
+  background-color: #f4f4f4;
+  height: fit-content;
+}
+
+.content {
+  grid-area: c;
+  height: max-content;
+  background-color: #f4f4f4;
+}
+
+.pagination-container {
+  padding: 10px;
+  background-color: white;
+}
+
+.pagination {
+  display: grid;
+  padding: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.footer {
+  height: 200px;
+  background-color: white;
+}

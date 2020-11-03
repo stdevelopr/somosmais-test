@@ -6,13 +6,13 @@ import json
 clients_bp = Blueprint('clients', __name__, url_prefix='/clients')
 
 def filter_region(df, region):
-    if region:
+    if region and region != "all":
         return df[df['location'].apply(lambda x: x['region']==region)]
     else:
         return df
 
 def filter_type(df, client_type):
-    if client_type:
+    if client_type and client_type != "all":
         return df[df['type'] == client_type]
     else:
         return df
@@ -43,10 +43,12 @@ def index():
 
     result_json = ds.to_json(orient="records")
     parsed_json = json.loads(result_json)
-    resp = {
+    resp = jsonify({
         "pageNumber": pageNumber,
         "pageSize": pageSize,
         "totalCount": totalCount,
         "users": parsed_json
-    }
-    return jsonify(resp)
+    })
+    # resp = jsonify(parsed_json)
+    resp.headers.add("Access-Control-Allow-Origin", "*")
+    return resp

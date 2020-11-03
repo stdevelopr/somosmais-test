@@ -1,0 +1,39 @@
+<div class="home-container">
+  <div class="sidenav">
+    <app-filter
+      (filterRegion)="onFilterRegion($event)"
+      (filterType)="onFilterType($event)"
+    ></app-filter>
+  </div>
+  <div class="content" *ngIf="data">
+    <app-list [users]="data.users"></app-list>
+    <mat-form-field appearance="fill" class="pagination">
+      <mat-label style="font-weight: lighter">por página</mat-label>
+      <select
+        matNativeControl
+        required
+        (change)="pageSizeChange($event.target.value)"
+      >
+        <option value="5" [selected]="pageSize == 5">5</option>
+        <option value="10" [selected]="pageSize == 10">10</option>
+        <option value="25" [selected]="pageSize == 25">25</option>
+        <option value="50" [selected]="pageSize == 50">50</option>
+        <option value="100" [selected]="pageSize == 100">100</option>
+      </select>
+    </mat-form-field>
+    <div class="pagination-container">
+      <ngb-pagination
+        [collectionSize]="data.totalCount"
+        [(page)]="pageNumber"
+        [pageSize]="pageSize"
+        [maxSize]="5"
+        (pageChange)="pageChange($event)"
+        aria-label="Default pagination"
+        class="pagination"
+      ></ngb-pagination>
+    </div>
+    <div class="footer">
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

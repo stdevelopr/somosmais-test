@@ -1,0 +1,39 @@
+.header {
+  width: 100vw;
+  min-width: 745px;
+}
+
+img {
+  height: 150px;
+  margin: 30px 30px 30px 120px;
+  /* background-color: #f4f4f4;
+  border-radius: 80px; */
+}
+
+label {
+  font-size: x-large;
+  position: absolute;
+  left: 140px;
+  top: 150px;
+  font-weight: bolder;
+  font-family: none;
+  color: #828b9c;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+}
+.nav {
+  margin-right: 130px;
+  margin-bottom: 80p;
+}
+
+.details {
+  color: black;
+}
+
+.activeLink {
+  color: black;
+  pointer-events: none;
+}

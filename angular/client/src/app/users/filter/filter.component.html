@@ -1,0 +1,38 @@
+<div class="radio-container">
+  <label class="label">Filtrar por Usuário:</label>
+  <mat-radio-group
+    class="radio-group"
+    aria-label="Select an option"
+    [(ngModel)]="type"
+    color="primary"
+  >
+    <mat-radio-button ngDefaultControl value="all">Todos</mat-radio-button>
+    <mat-radio-button ngDefaultControl value="special"
+      >Especial</mat-radio-button
+    >
+    <mat-radio-button ngDefaultControl value="normal">Normal</mat-radio-button>
+    <mat-radio-button ngDefaultControl value="laborious"
+      >Trabalhoso</mat-radio-button
+    >
+  </mat-radio-group>
+</div>
+
+<div class="radio-container">
+  <label class="label">Filtrar por região:</label>
+  <mat-radio-group
+    class="radio-group"
+    aria-label="Select an option"
+    [(ngModel)]="region"
+    color="primary"
+  >
+    <mat-radio-button ngDefaultControl value="all">Todas</mat-radio-button>
+    <mat-radio-button ngDefaultControl value="norte">Norte</mat-radio-button>
+    <mat-radio-button ngDefaultControl value="nordeste"
+      >Nordeste</mat-radio-button
+    >
+    <mat-radio-button ngDefaultControl value="sudeste"
+      >Sudeste</mat-radio-button
+    >
+    <mat-radio-button ngDefaultControl value="sul">Sul</mat-radio-button>
+  </mat-radio-group>
+</div>

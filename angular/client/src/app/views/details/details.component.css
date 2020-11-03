@@ -1,0 +1,25 @@
+.details-container {
+  /* display: grid; */
+  text-align: center;
+  padding: 0px 70px 70px 70px;
+  min-width: 745px;
+}
+
+.content {
+  padding: 0px 20px 20px 20px;
+  background-color: #f4f4f4;
+}
+
+.content img {
+  height: 200px;
+  padding: 30px;
+}
+table,
+th,
+td {
+  padding: 10px;
+  background: white;
+  margin: auto;
+  width: 50%;
+  border: 1px solid black;
+}

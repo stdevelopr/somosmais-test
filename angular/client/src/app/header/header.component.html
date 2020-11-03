@@ -1,0 +1,24 @@
+<div class="header">
+  <a href="http://stdevelopr.pythonanywhere.com/portfolio">
+    <img src="assets/logo.png" />
+  </a>
+  <label>Developer</label>
+  <nav class="nav">
+    <a
+      routerLink="/"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="activeLink"
+      #rla="routerLinkActive"
+    >
+      Home {{ rla.isActive ? "" : "" }}
+    </a>
+    <a
+      routerLink="/details"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="activeLink"
+      #rlb="routerLinkActive"
+    >
+      {{ rlb.isActive ? "\< Details" : "" }}
+    </a>
+  </nav>
+</div>

@@ -1,0 +1,46 @@
+.cards-container {
+  display: grid; /* 1 */
+  grid-template-columns: repeat(auto-fill, 250px); /* 2 */
+  grid-gap: 10px; /* 3 */
+  justify-content: center; /* 4 */
+}
+
+.card-block {
+  display: flex;
+  margin: 10px;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #ededed;
+  text-align: center;
+}
+
+.card {
+  margin: 10px;
+  height: 300px;
+  /* width: 200px; */
+}
+
+.mat-card {
+  text-align: center;
+  border: none;
+  height: 100%;
+  background-color: #e4e4e4;
+  box-shadow: none;
+}
+.mat-card :first-child {
+  margin-top: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+  margin: 10px;
+}
+
+.user-adress {
+  margin: 15px;
+}
+
+.user-info {
+  margin: 10px;
+  font-size: 0.9em;
+}

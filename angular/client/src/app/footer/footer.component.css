@@ -1,0 +1,19 @@
+img {
+  height: 100px;
+}
+
+.footer {
+  height: 180px;
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+p {
+  font-weight: bold;
+}
+
+i {
+  margin: 10px;
+}
